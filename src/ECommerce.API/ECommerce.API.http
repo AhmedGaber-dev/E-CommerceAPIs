@@ -1,0 +1,43 @@
+@baseUrl = https://localhost:7113
+@token = YOUR_JWT_HERE
+
+### Register
+POST {{baseUrl}}/api/v1/Auth/register
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "Customer123!",
+  "firstName": "Jane",
+  "lastName": "Doe"
+}
+
+### Login (admin seed: admin@ecommerce.local / Admin123!)
+POST {{baseUrl}}/api/v1/Auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@ecommerce.local",
+  "password": "Admin123!"
+}
+
+### Products (paged, anonymous)
+GET {{baseUrl}}/api/v1/Products?page=1&pageSize=10&sortBy=price&sortDescending=true
+
+### Create product (Admin + Bearer)
+POST {{baseUrl}}/api/v1/Products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "USB-C Cable",
+  "description": "1m braided",
+  "price": 12.99,
+  "stockQuantity": 200,
+  "sku": "USB-C-1M",
+  "categoryIds": []
+}
+
+### Checkout (User + Bearer)
+POST {{baseUrl}}/api/v1/Orders/checkout
+Authorization: Bearer {{token}}
